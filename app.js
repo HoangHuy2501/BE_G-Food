@@ -12,6 +12,7 @@ var successHandler= require('./middleware/SuccessHandle');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var AuthRouter = require('./routes/AuthRoutes');
+var AIRoutes = require('./routes/AIRoutes');
 var app = express();
 app.use(cors);
 //kết nối database
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/auth', AuthRouter);
+app.use('/api/gemini', AIRoutes);
 app.use(successHandler);
 app.use(errorsHandler);
 // catch 404 and forward to error handler

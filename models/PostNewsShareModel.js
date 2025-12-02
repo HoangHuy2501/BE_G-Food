@@ -5,6 +5,7 @@ const PostNewsShareModel = sequelize.define('Post_news_share', {
   id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
   userid: DataTypes.UUID,
   categoryid: DataTypes.UUID,
+  name: DataTypes.TEXT,
   content: DataTypes.TEXT,
   status: DataTypes.TEXT,
   createat: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }

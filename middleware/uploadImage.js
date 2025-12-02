@@ -48,7 +48,7 @@ const uploadImageCloudinary = (filename) => [
   async (req, res, next) => {
     try {
       if (!req.file) {
-        return ApiError.ValidationError('No file uploaded');
+        return next(ApiError.ValidationError('No file uploaded'));
       }
       const result =await uploadBufferToCloudinary(req.file.buffer);
       req.file.cloudinaryUrl = result.secure_url;

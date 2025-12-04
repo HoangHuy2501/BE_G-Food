@@ -16,7 +16,7 @@ class AuthRepository{
     async checkEmail(email){
         return await UserModel.findOne({
             attributes: ['id','password'],
-            where:{email:email}});
+            where:{email:email, status:true}});
     }
     // kiểm tra email và mật khẩu
     async getUserID(id){

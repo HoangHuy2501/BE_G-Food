@@ -26,6 +26,7 @@ class AuthServices{
     async registerUser(req){
         try {
             const data=req.body;
+            data.status=true;
             if(!data.sex){
                 throw ApiError.ValidationError("Sex is required")
             } else if(data.sex==='true'){

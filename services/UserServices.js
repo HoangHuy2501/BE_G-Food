@@ -32,6 +32,29 @@ class UserServices{
             throw error;
         }
     }
+
+    async LockUser(id){
+        try {
+            if(!id){
+                throw ApiErorr.ValidationError('ID is required');
+            }
+            return await UserRepository.lockUser(id);
+        } catch (error) {
+            throw error;
+        }
+    }
+    async UnLockUser(id){
+        try {
+            if(!id){
+                throw ApiErorr.ValidationError('ID is required');
+            }
+            return await UserRepository.unlockUser(id);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
 }
 
 module.exports=new UserServices();

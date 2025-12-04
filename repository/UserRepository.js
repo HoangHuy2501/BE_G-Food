@@ -9,5 +9,14 @@ class UserRepository {
     async updateUser(id,data) {
         return await UserModel.update(data,{where:{id:id}});
     };
+    // khóa tài khoản
+    async lockUser(id) {
+        return await UserModel.update({status:false},{where:{id:id}});
+    };
+
+    // mở tài khoản 
+    async unlockUser(id) {
+        return await UserModel.update({status:true},{where:{id:id}});
+    };
 }
 module.exports = new UserRepository();

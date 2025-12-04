@@ -7,6 +7,7 @@ const UserModel = sequelize.define('User', {
   email: DataTypes.TEXT,
   password: DataTypes.STRING,
   sex: DataTypes.BOOLEAN,
+  status: DataTypes.BOOLEAN,
   phone: DataTypes.STRING,
   location: DataTypes.TEXT,
   createat: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }

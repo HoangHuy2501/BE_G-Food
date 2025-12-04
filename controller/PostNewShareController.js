@@ -11,3 +11,20 @@ exports.createPostNewShare = async (req, res, next) => {
     return next(error);
   }
 };
+exports.getAllPostNewShares = async (req, res, next) => {
+  try {
+    const result = await PostNewShareService.getAllPostNewShares();
+    return res.json(ApiSuccess.getSelect("PostNewShare", result));
+  } catch (error) {
+    return next(error);
+  }
+};
+exports.getPostNewShareById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const result = await PostNewShareService.getPostNewShareById(id);
+    return res.json(ApiSuccess.getSelect("PostNewShare detail", result));
+  } catch (error) {
+    return next(error);
+  }
+};

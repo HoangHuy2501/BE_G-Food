@@ -5,4 +5,6 @@ const uploadFile=require('../middleware/uploadImage');
 const validatePostNewShare=require('../middleware/validator/validate_postnewshare');
 /* GET home page. */
 router.post('/:id', uploadFile('image'), validatePostNewShare, PostNewShareController.createPostNewShare);
+router.get('/', PostNewShareController.getAllPostNewShares);
+router.get('/:id', PostNewShareController.getPostNewShareById);
 module.exports = router;

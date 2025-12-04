@@ -5,6 +5,9 @@ class UserRepository {
         return await UserModel.findByPk(id,{
             attributes: ['id', 'username', 'email','sex', 'phone', 'location', 'createat']
         });
-    }
+    };
+    async updateUser(id,data) {
+        return await UserModel.update(data,{where:{id:id}});
+    };
 }
 module.exports = new UserRepository();

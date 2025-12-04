@@ -29,5 +29,26 @@ class PostNewShareServices {
             throw error;
         }
     }
+    // Lấy tất cả bài viết mới chia sẻ
+    async getAllPostNewShares() {
+        try {
+            const postNewShares = await PostNewShareRepository.getAllPostNewShares();
+            return postNewShares;
+        } catch (error) {
+            throw error;
+        }
+    }
+    // Lấy bài viết chi tiết
+    async getPostNewShareById(id) {
+        try {
+            if(!id){
+                throw ApiErorr.ValidationError('postnewshare_id is required');
+            }
+            const postNewShare = await PostNewShareRepository.getPostNewShareById(id);
+            return postNewShare;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 module.exports = new PostNewShareServices();

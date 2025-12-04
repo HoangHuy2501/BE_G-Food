@@ -9,3 +9,13 @@ exports.getUserByID=async(req,res,next)=>{
         return next(error);
     }
 }
+
+exports.updateUser=async(req,res,next)=>{
+    try {
+        const id=req.params.id;
+        const result=await UserServices.updateUser(req,id);
+        return res.json(ApiSuccess.updated("User"));
+    } catch (error) {
+        return next(error);
+    }
+}

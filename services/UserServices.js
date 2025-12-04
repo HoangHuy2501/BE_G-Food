@@ -12,6 +12,17 @@ class UserServices{
             throw error;
         }
     }
+
+    async updateUser(req, id){
+        try {
+            if(!id){
+                throw ApiErorr.ValidationError('ID is required');
+            }
+            return await UserRepository.updateUser(id,req.body);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports=new UserServices();

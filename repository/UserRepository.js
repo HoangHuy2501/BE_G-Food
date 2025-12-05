@@ -18,5 +18,12 @@ class UserRepository {
     async unlockUser(id) {
         return await UserModel.update({status:true},{where:{id:id}});
     };
+
+    async getAllUsers() {
+        return await UserModel.findAll({
+            attributes: ['id', 'username', 'email','sex', 'phone', 'location','status', 'createat'],
+            order:[['createat','DESC']]
+        });
+    };
 }
 module.exports = new UserRepository();

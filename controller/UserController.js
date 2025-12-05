@@ -20,6 +20,14 @@ exports.updateUser=async(req,res,next)=>{
     }
 }
 
+exports.getAllUser=async(req,res,next)=>{
+    try {
+        const result=await UserServices.getAllUser();
+        return res.json(ApiSuccess.getSelect("All User", result));
+    } catch (error) {
+        return next(error);
+    }
+}
 exports.LockUser=async(req,res,next)=>{
     try {
         const id=req.params.id;

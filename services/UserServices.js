@@ -33,6 +33,14 @@ class UserServices{
         }
     }
 
+    async getAllUser(){
+        try {
+            return await UserRepository.getAllUsers();
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async LockUser(id){
         try {
             if(!id){

@@ -24,7 +24,7 @@ class PostNewShareRepository{
     async getAllPostNewShares() {
         try {
             const postNewShares = await PostNewsShareModel.findAll({
-                attributes:['id','name'],
+                attributes:['id','name','content','status','createat'],
                 include:[{
                     model: PostImageModel,
                     attributes: ['image']

@@ -53,9 +53,9 @@ PostExpressionModel.belongsTo(UserModel, { foreignKey: 'userid' });
 // Expression - Post_expression (1-N)
 ExpressionModel.hasMany(PostExpressionModel, { foreignKey: 'expressionid' });
 PostExpressionModel.belongsTo(ExpressionModel, { foreignKey: 'expressionid' });
-// Receive_post (1-1 với Post_news_share)
-PostNewsShareModel.hasOne(ReceivePostModel, { foreignKey: 'id' });
-ReceivePostModel.belongsTo(PostNewsShareModel, { foreignKey: 'id' });
+// Receive_post (1-n với Post_news_share)
+PostNewsShareModel.hasMany(ReceivePostModel, { foreignKey: 'postshareid' });
+ReceivePostModel.belongsTo(PostNewsShareModel, { foreignKey: 'postshareid' });
 
 // User - Receive_post (1-N)
 UserModel.hasMany(ReceivePostModel, { foreignKey: 'userid' });

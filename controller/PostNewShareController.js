@@ -28,3 +28,23 @@ exports.getPostNewShareById = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.getPostNewShareByAdmin = async (req, res, next) => {
+  try {
+    const search = req.query.search;
+    const result = await PostNewShareService.getAllPostNewSharesAdmin(search);
+    return res.json(ApiSuccess.getSelect("PostNewShare detail", result));
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.getPostNewShareDetailByIDAdmin=async(req,res,next)=>{
+    try {
+        const id=req.params.id;
+        const result=await PostNewShareService.getPostNewShareByIdAdmin(id);
+        return res.json(ApiSuccess.getSelect("PostNewShare detail", result));
+    } catch (error) {
+        return next(error);
+    }
+}

@@ -1,5 +1,5 @@
-const {PostNewsShareModel,PostImageModel,CategoryModel,UserModel}   = require('../models/index');
-
+const {PostNewsShareModel,PostImageModel,CategoryModel,UserModel,ReceivePostModel}   = require('../models/index');
+const { Op } = require("sequelize");
 class PostNewShareRepository{
     //Tạo bài viết mới
     async createPostNewShare(data, options={}) {
@@ -20,7 +20,7 @@ class PostNewShareRepository{
         }
     }
 
-    // lấy tất cả bài viết
+    // lấy tất cả bài viết có status=active
     async getAllPostNewShares() {
         try {
             const postNewShares = await PostNewsShareModel.findAll({
@@ -39,6 +39,56 @@ class PostNewShareRepository{
                 where: { status: 'active' }
             });
             return postNewShares;
+        } catch (error) {
+            throw error;
+        }
+    }
+    // lấy tất cả bài viết cho admin quản lý
+    async getAllPostNewSharesAdmin(sreach) {
+        try {
+            return await PostNewsShareModel.findAll({
+                attributes: ['id', 'name', 'content', 'status', 'createat'],
+                include: [{
+                    model: CategoryModel,
+                    attributes: ['name']
+                },{
+                    model: UserModel,
+                    attributes: ['location']
+                }],
+                where: sreach
+                ? { name: { [Op.iLike]: `%${sreach}%` } }  // có search thì dùng LIKE
+                : {},
+                order: [['createat', 'DESC']]
+            });
+        } catch (error) {
+            throw error;
+        }
+    }
+    // lấy bài chi tiết cho admin
+    async getPostNewShareByIdAdmin(id) {
+        try {
+            const postNewShare = await PostNewsShareModel.findOne({
+                attributes: ['id', 'name', 'content', 'status', 'createat'],
+                include: [{
+                    model: PostImageModel,
+                    attributes: ['image']
+                },{
+                    model: CategoryModel,
+                    attributes: ['name']
+                },{
+                    model: UserModel,
+                    attributes: ['location','username']
+                }],
+                where: { id: id }
+            });
+            const count = await ReceivePostModel.count({
+            where: { postshareid: id }
+        });
+
+            return {
+                ...postNewShare.get(),
+                receiveCount: count
+            };
         } catch (error) {
             throw error;
         }

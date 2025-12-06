@@ -46,6 +46,28 @@ class PostNewShareServices {
       throw error;
     }
   }
+  // Lấy tất cả bài viết cho admin quản lý
+  async getAllPostNewSharesAdmin(search) {
+    try {
+      const sreach = search ? search : "";
+      console.log('data',sreach);
+      
+      const postNewShares = await PostNewShareRepository.getAllPostNewSharesAdmin(sreach);
+      return postNewShares;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Lấy bài chi tiết cho admin
+  async getPostNewShareByIdAdmin(id) {
+    try {
+      const postNewShare = await PostNewShareRepository.getPostNewShareByIdAdmin(id);
+      return postNewShare;
+    } catch (error) {
+      throw error;
+    }
+  }
   // Lấy bài viết chi tiết
   async getPostNewShareById(id) {
     try {

@@ -9,7 +9,7 @@ var cors = require('./config/cors');
 var errorsHandler= require('./middleware/errorHandler');
 var successHandler= require('./middleware/SuccessHandle');
 //routes
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/IndexRoutes');
 var UsersRouter = require('./routes/UserRoutes');
 var AuthRouter = require('./routes/AuthRoutes');
 var AIRoutes = require('./routes/AIRoutes');
@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/', indexRouter);
+app.use('/api/index', indexRouter);
 app.use('/api/users', UsersRouter);
 app.use('/api/auth', AuthRouter);
 app.use('/api/gemini', AIRoutes);

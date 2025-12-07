@@ -87,7 +87,19 @@ class PostNewShareServices {
       if (!id) {
         throw ApiErorr.ValidationError("postnewshare_id is required");
       }
-      const postNewShare = await PostNewShareRepository.lockPostNewShare(id);
+      let dataStatus='lock';
+      let postNewShare;
+      const checkStatus= await PostNewShareRepository.checkPostNewShare(id);
+      console.log("status:",checkStatus.status);
+      
+      if(checkStatus.status==='received'){
+        throw ApiErorr.ValidationError('postnewshare_id is received');
+      }else if(checkStatus.status==='lock'){
+        dataStatus='active';
+         postNewShare= await PostNewShareRepository.lockPostNewShare(id,dataStatus);
+      }else{
+         postNewShare = await PostNewShareRepository.lockPostNewShare(id,dataStatus);
+      }
       return postNewShare;
     } catch (error) {
       throw error;

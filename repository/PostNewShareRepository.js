@@ -116,22 +116,22 @@ class PostNewShareRepository{
         }
     }
     // lock bài viết
-    async lockPostNewShare(id) {
+    async lockPostNewShare(id,data) {
         try {
-            const postNewShare = await PostNewsShareModel.update({ status: 'lock' }, { where: { id: id } });
+            const postNewShare = await PostNewsShareModel.update({ status: data }, { where: { id: id } });
             return postNewShare;
         } catch (error) {
             throw error;
         }
     }
     // check trạng thái bài viết
-    // async checkPostNewShare(id) {
-    //     try {
-    //         const postNewShare = await PostNewsShareModel.findOne({ where: { id: id } });
-    //         return postNewShare;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
+    async checkPostNewShare(id) {
+        try {
+            const postNewShare = await PostNewsShareModel.findOne({attributes: ['status'], where: { id: id } });
+            return postNewShare;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 module.exports = new PostNewShareRepository();

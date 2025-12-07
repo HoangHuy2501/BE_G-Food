@@ -115,5 +115,23 @@ class PostNewShareRepository{
             throw error;
         }
     }
+    // lock bài viết
+    async lockPostNewShare(id) {
+        try {
+            const postNewShare = await PostNewsShareModel.update({ status: 'lock' }, { where: { id: id } });
+            return postNewShare;
+        } catch (error) {
+            throw error;
+        }
+    }
+    // check trạng thái bài viết
+    // async checkPostNewShare(id) {
+    //     try {
+    //         const postNewShare = await PostNewsShareModel.findOne({ where: { id: id } });
+    //         return postNewShare;
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
 }
 module.exports = new PostNewShareRepository();

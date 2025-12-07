@@ -6,6 +6,7 @@ const validatePostNewShare=require('../middleware/validator/validate_postnewshar
 /* GET home page. */
 router.get('/admin', PostNewShareController.getPostNewShareByAdmin);
 router.get('/admin-detail/:id', PostNewShareController.getPostNewShareDetailByIDAdmin);
+router.put('/lock/:id', PostNewShareController.lockPostShare);
 router.post('/:id', uploadFile('image'), validatePostNewShare, PostNewShareController.createPostNewShare);
 router.get('/', PostNewShareController.getAllPostNewShares);
 router.get('/:id', PostNewShareController.getPostNewShareById);

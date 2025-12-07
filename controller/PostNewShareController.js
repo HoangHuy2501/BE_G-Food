@@ -48,3 +48,13 @@ exports.getPostNewShareDetailByIDAdmin=async(req,res,next)=>{
         return next(error);
     }
 }
+
+exports.lockPostShare=async(req,res,next)=>{
+    try {
+        const id=req.params.id;
+        const result=await PostNewShareService.lockPostNewShare(id);
+        return res.json(ApiSuccess.updated("PostNewShare locked "));
+    } catch (error) {
+        return next(error);
+    }
+}

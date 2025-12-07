@@ -80,5 +80,18 @@ class PostNewShareServices {
       throw error;
     }
   }
+
+  // lock bài viết
+  async lockPostNewShare(id) {
+    try {
+      if (!id) {
+        throw ApiErorr.ValidationError("postnewshare_id is required");
+      }
+      const postNewShare = await PostNewShareRepository.lockPostNewShare(id);
+      return postNewShare;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 module.exports = new PostNewShareServices();

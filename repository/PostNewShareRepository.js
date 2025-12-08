@@ -21,7 +21,7 @@ class PostNewShareRepository{
     }
 
     // lấy tất cả bài viết có status=active
-    async getAllPostNewShares() {
+    async getAllPostNewShares(search) {
         try {
             const postNewShares = await PostNewsShareModel.findAll({
                 attributes:['id','name','content','status','createat'],
@@ -35,8 +35,13 @@ class PostNewShareRepository{
                     model: UserModel,
                     attributes: ['location']
                 }],
-                order:[['createat','DESC']],
-                where: { status: 'active' }
+                 where: {
+                status: 'active', // ✅ luôn luôn lọc status
+                ...(search && {   // ✅ chỉ thêm điều kiện name khi có search
+                    name: { [Op.iLike]: `%${search}%` }
+                })
+            },
+                order:[['createat','DESC']]
             });
             return postNewShares;
         } catch (error) {

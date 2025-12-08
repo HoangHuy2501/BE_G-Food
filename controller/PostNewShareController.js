@@ -13,7 +13,10 @@ exports.createPostNewShare = async (req, res, next) => {
 };
 exports.getAllPostNewShares = async (req, res, next) => {
   try {
-    const result = await PostNewShareService.getAllPostNewShares();
+    const search = req.query.search;
+    // console.log("tìm kiếm:", search);
+    
+    const result = await PostNewShareService.getAllPostNewShares(search);
     return res.json(ApiSuccess.getSelect("PostNewShare", result));
   } catch (error) {
     return next(error);

@@ -38,9 +38,12 @@ class PostNewShareServices {
     }
   }
   // Lấy tất cả bài viết mới chia sẻ
-  async getAllPostNewShares() {
+  async getAllPostNewShares(search) {
     try {
-      const postNewShares = await PostNewShareRepository.getAllPostNewShares();
+      const sreach = search ? search : "";
+      // console.log("tìm kiếm:",sreach);
+      
+      const postNewShares = await PostNewShareRepository.getAllPostNewShares(sreach);
       return postNewShares;
     } catch (error) {
       throw error;
@@ -50,7 +53,7 @@ class PostNewShareServices {
   async getAllPostNewSharesAdmin(search) {
     try {
       const sreach = search ? search : "";
-      console.log('data',sreach);
+      // console.log('data',sreach);
       
       const postNewShares = await PostNewShareRepository.getAllPostNewSharesAdmin(sreach);
       return postNewShares;

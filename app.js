@@ -15,6 +15,7 @@ var AuthRouter = require('./routes/AuthRoutes');
 var AIRoutes = require('./routes/AIRoutes');
 var PostNewShareRouter= require('./routes/PostNewShareRoutes');
 var CategoryRouter= require('./routes/CategoryRoutes');
+var ReceivePostRouter= require('./routes/ReceivePostRoutes');
 var app = express();
 app.use(cors);
 //kết nối database
@@ -45,6 +46,7 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/gemini', AIRoutes);
 app.use('/api/postnewshare', PostNewShareRouter);
 app.use('/api/categories', CategoryRouter);
+app.use('/api/receivepost', ReceivePostRouter);
 app.use(successHandler);
 app.use(errorsHandler);
 // catch 404 and forward to error handler

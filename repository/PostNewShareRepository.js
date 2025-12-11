@@ -138,5 +138,29 @@ class PostNewShareRepository{
             throw error;
         }
     }
+    // hiển thị các bài viết của user mà có trạng thái active
+    async getPostNewShareByUserId(userId) {
+        return await PostNewsShareModel.findAll({
+            attributes: ['id', 'name', 'content', 'createat'],
+            include: [{
+                model: PostImageModel,
+                attributes: ['image']
+            }, {
+                model: CategoryModel,
+                attributes: ['name']
+            }],
+            where: { userid: userId, status: 'active' },
+            order: [['createat', 'DESC']]
+        })
+    }
+    // chuyển trạng thái khi đã nhận sản phẩm
+    async updateStatus(id, option={}) {
+        try {
+            const postNewShare = await PostNewsShareModel.update({ status:'received' }, { where: { id: id } ,...option});
+            return postNewShare;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 module.exports = new PostNewShareRepository();

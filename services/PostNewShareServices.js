@@ -108,5 +108,17 @@ class PostNewShareServices {
       throw error;
     }
   }
+  // lấy danh sách bài viết của user mà có trạng thái active
+  async getPostNewShareByUserId(userId) {
+    try {
+      if (!userId) {
+        throw ApiErorr.ValidationError("user_id is required");
+      }
+      const postNewShares = await PostNewShareRepository.getPostNewShareByUserId(userId);
+      return postNewShares;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 module.exports = new PostNewShareServices();

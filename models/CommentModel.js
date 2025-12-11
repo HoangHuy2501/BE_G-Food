@@ -6,7 +6,7 @@ const CommentModel = sequelize.define('Comment', {
     postshareid: DataTypes.UUID,
     userid: DataTypes.UUID,
   content: DataTypes.TEXT,
-  createat: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
+  creatat: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
 }, {
   tableName: 'Comment',
   timestamps: false

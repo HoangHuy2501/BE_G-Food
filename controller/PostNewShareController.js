@@ -61,3 +61,14 @@ exports.lockPostShare=async(req,res,next)=>{
         return next(error);
     }
 }
+// danh sách các sản phẩm có trạng thái active
+
+exports.getPostNewShareByUserId = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const result = await PostNewShareService.getPostNewShareByUserId(userId);
+    return res.json(ApiSuccess.getSelect("PostNewShare", result));
+  } catch (error) {
+    return next(error);
+  }
+};

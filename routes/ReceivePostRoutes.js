@@ -11,4 +11,6 @@ router.put('/accept/:postID/:receiveID', ReceivePostController.AcceptReceivePost
 router.get('/list-user/:id', ReceivePostController.getAllReceivePostByUserId);
 // đánh giá bài viết
 router.post('/comment/:id', ReceivePostController.CommentPost);
+// lịch sử bài nhận
+router.get('/history/:id', ReceivePostController.getHistoryReceivePost);
 module.exports = router;

@@ -66,9 +66,28 @@ class ReceivePostServices{
             if(!data.content){
                 throw ApiError.ValidationError('content is required');
             }
+            const checkUserStatus= await ReceivePostRepository.checkReceivePostStatus(postshareID, userID);
+            if(!checkUserStatus){
+                throw ApiError.ValidationError('you have not received this post');
+            }
+            const checkCommentPost= await ReceivePostRepository.checkCommentPost(postshareID);
+            if(checkCommentPost){
+                throw ApiError.ValidationError('you have commented this post');
+            }
             data.userid=userID;
             data.postshareid=postshareID;
             return await ReceivePostRepository.CommentPost(data);
+        } catch (error) {
+            throw error;
+        }
+    }
+    // lịch sử bài nhận
+    async getHistoryReceivePost(userId) {
+        try {
+            if(!userId){
+                throw ApiError.ValidationError('user_id is required');
+            }
+            return await ReceivePostRepository.getHistoryReceivePost(userId);
         } catch (error) {
             throw error;
         }

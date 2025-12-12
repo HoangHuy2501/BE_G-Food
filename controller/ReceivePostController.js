@@ -56,3 +56,14 @@ exports.CommentPost=async(req,res,next)=>{
         return next (error);
     }
 }
+
+// lịch sử bài nhận
+exports.getHistoryReceivePost=async(req,res,next)=>{
+    try {
+        const userId=req.params.id;
+        const data=await ReceivePostServices.getHistoryReceivePost(userId);
+        return res.status(200).json(ApiSuccess.getSelect("getHistoryReceivePost",data));
+    } catch (error) {
+        return next (error);
+    }
+}

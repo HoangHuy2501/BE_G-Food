@@ -1,6 +1,8 @@
 const { connectAI } = require("../config/connectAI");
 const ApiSuccess = require("../utils/ApiSuccess");
+const retry=require("../utils/retry");
 const ApiErorr = require("../utils/ApiError");
+const { ApiError } = require("@google/genai");
 exports.ChatAI=async (req, res, next) => {
   try {
     const text= req.body;
@@ -41,19 +43,24 @@ Rã đông thịt heo trong ngăn mát tủ lạnh hoặc bằng lò vi sóng (c
  Thịt đã rã đông nên được chế biến ngay, không nên cấp đông lại.<br>
  Luôn đảm bảo vệ sinh khi chế biến và bảo quản thực phẩm.
     `;
-    const data = {
-    contents: [
-      {
-        parts: [
-          { text: prompt }
-        ]
-      }
-    ]
-  };
-    const result = await connectAI(data);
-
-    return res.json(ApiSuccess.getSelect("AI", result.candidates?.[0]?.content?.parts?.[0]?.text));
+   
+// const data = {
+//     contents: [
+//       {
+//         parts: [
+//           { text: prompt }
+//         ]
+//       }
+//     ]
+//   };
+const result = await retry(() => connectAI(prompt))
+  // console.log("result",result);
+  // result.candidates?.[0]?.content?.parts?.[0]?.text
+    return res.json(ApiSuccess.getSelect("AI",result));
   } catch (error) {
+    if(error.status===429 || error.status===503){
+      return res.status(429).json("please try again later.");
+    }
     return next(error);
   }
 }

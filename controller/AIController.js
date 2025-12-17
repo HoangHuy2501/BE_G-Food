@@ -2,7 +2,6 @@ const { connectAI } = require("../config/connectAI");
 const ApiSuccess = require("../utils/ApiSuccess");
 const retry=require("../utils/retry");
 const ApiErorr = require("../utils/ApiError");
-const { ApiError } = require("@google/genai");
 exports.ChatAI=async (req, res, next) => {
   try {
     const text= req.body;
@@ -59,7 +58,7 @@ const result = await retry(() => connectAI(prompt))
     return res.json(ApiSuccess.getSelect("AI",result));
   } catch (error) {
     if(error.status===429 || error.status===503){
-      return res.status(429).json("please try again later.");
+      return res.status(429).json({message:"please try again later."});
     }
     return next(error);
   }

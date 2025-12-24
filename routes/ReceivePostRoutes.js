@@ -9,6 +9,8 @@ router.get('/list/:id', ReceivePostController.getAllReceivePost);
 router.put('/accept/:postID/:receiveID', ReceivePostController.AcceptReceivePost);
 // danh sách được nhận sản phẩm của họ cho - userid
 router.get('/list-user/:id', ReceivePostController.getAllReceivePostByUserId);
+// thông tin liên hệ người cho sản phẩm
+router.get('/contact/:id', ReceivePostController.getContactReceivePost);
 // đánh giá bài viết
 router.post('/comment/:id', ReceivePostController.CommentPost);
 // lịch sử bài nhận

@@ -1,4 +1,4 @@
-const {ReceivePostModel,UserModel,PostNewsShareModel,CommentModel, CategoryModel}= require('../models/index');
+const {ReceivePostModel,UserModel,PostNewsShareModel,CommentModel, CategoryModel,PostImageModel}= require('../models/index');
 
 class ReceivePostRepository {
     // gửi yêu cầu nhận sản phẩm
@@ -42,7 +42,11 @@ class ReceivePostRepository {
             include: [{
                 model: PostNewsShareModel,
                 attributes: ['id','name','content','createat'],
-                order:[['createat','DESC']]
+                order:[['createat','DESC']],
+                include:[{
+                    model:PostImageModel,
+                    attributes: ['image']
+                }]
             }]
         });
     }
@@ -74,6 +78,21 @@ class ReceivePostRepository {
                 attributes: [['username','UserNameReceived']]
             }],
             order:[['createat','DESC']]
+        });
+    }
+    // liên hệ người cho để nhận sản phẩm
+    async getContactReceivePost(userId){
+        return await ReceivePostModel.findAll({
+            attributes:['id'],
+            where:{userid:userId, status:true},
+            include: [{
+                model: PostNewsShareModel,
+                attributes: ['id'],
+                include:[{
+                    model:UserModel,
+                    attributes: ['username','location','phone']
+                }]
+            }]
         });
     }
 }

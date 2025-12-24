@@ -92,5 +92,16 @@ class ReceivePostServices{
             throw error;
         }
     }
+    // liên hệ người cho để nhận sản phẩm
+    async getContactReceivePost(userId) {
+        try {
+            if(!userId){
+                throw ApiError.ValidationError('user_id is required');
+            }
+            return await ReceivePostRepository.getContactReceivePost(userId);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 module.exports=new ReceivePostServices();

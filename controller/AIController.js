@@ -1,16 +1,16 @@
 const { connectAI } = require("../config/connectAI");
 const ApiSuccess = require("../utils/ApiSuccess");
-const retry=require("../utils/retry");
+const retry = require("../utils/retry");
 const ApiErorr = require("../utils/ApiError");
-exports.ChatAI=async (req, res, next) => {
+exports.ChatAI = async (req, res, next) => {
   try {
-    const text= req.body;
-    if(!text || !text.content){
-        throw ApiErorr.ValidationError("No input text provided");
+    const text = req.body;
+    if (!text || !text.content) {
+      throw ApiErorr.ValidationError("No input text provided");
     }
-    console.log("data",text.content);
-    
-    const prompt=`
+    console.log("data", text.content);
+
+    const prompt = `
   Bạn là chuyên gia về bảo quản thực phẩm và thức ăn dư thừa.
 
 Người dùng có thể nhập tên thực phẩm hoặc món ăn ở dạng:
@@ -42,24 +42,24 @@ Rã đông thịt heo trong ngăn mát tủ lạnh hoặc bằng lò vi sóng (c
  Thịt đã rã đông nên được chế biến ngay, không nên cấp đông lại.<br>
  Luôn đảm bảo vệ sinh khi chế biến và bảo quản thực phẩm.
     `;
-   
-// const data = {
-//     contents: [
-//       {
-//         parts: [
-//           { text: prompt }
-//         ]
-//       }
-//     ]
-//   };
-const result = await retry(() => connectAI(prompt))
-  // console.log("result",result);
-  // result.candidates?.[0]?.content?.parts?.[0]?.text
-    return res.json(ApiSuccess.getSelect("AI",result));
+
+    // const data = {
+    //     contents: [
+    //       {
+    //         parts: [
+    //           { text: prompt }
+    //         ]
+    //       }
+    //     ]
+    //   };
+    const result = await retry(() => connectAI(prompt));
+    // console.log("result",result);
+    // result.candidates?.[0]?.content?.parts?.[0]?.text
+    return res.json(ApiSuccess.getSelect("AI", result));
   } catch (error) {
-    if(error.status===429 || error.status===503){
-      return res.status(429).json({message:"please try again later."});
+    if (error.status === 429 || error.status === 503) {
+      return res.status(429).json({ message: "please try again later." });
     }
     return next(error);
   }
-}
+};

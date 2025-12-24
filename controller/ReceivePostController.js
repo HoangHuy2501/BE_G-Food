@@ -67,3 +67,13 @@ exports.getHistoryReceivePost=async(req,res,next)=>{
         return next (error);
     }
 }
+// liên hệ người cho để nhận bài
+exports.getContactReceivePost=async(req,res,next)=>{
+    try {
+        const userId=req.params.id;
+        const data=await ReceivePostServices.getContactReceivePost(userId);
+        return res.status(200).json(ApiSuccess.getSelect("getContactReceivePost",data));
+    } catch (error) {
+        return next (error);
+    }
+}

@@ -33,7 +33,7 @@ class PostNewShareRepository{
                     attributes: ['name']
                 },{
                     model: UserModel,
-                    attributes: ['location']
+                    attributes: ['username','location']
                 }],
                  where: {
                 status: 'active', // ✅ luôn luôn lọc status

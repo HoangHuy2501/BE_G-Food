@@ -93,12 +93,12 @@ class ReceivePostServices{
         }
     }
     // liên hệ người cho để nhận sản phẩm
-    async getContactReceivePost(userId) {
+    async getContactReceivePost(PostID,userId) {
         try {
-            if(!userId){
-                throw ApiError.ValidationError('user_id is required');
+            if(!userId || !PostID){
+                throw ApiError.ValidationError('user_id and post_id is required');
             }
-            return await ReceivePostRepository.getContactReceivePost(userId);
+            return await ReceivePostRepository.getContactReceivePost(PostID,userId);
         } catch (error) {
             throw error;
         }

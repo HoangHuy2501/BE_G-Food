@@ -81,10 +81,10 @@ class ReceivePostRepository {
         });
     }
     // liên hệ người cho để nhận sản phẩm
-    async getContactReceivePost(userId){
+    async getContactReceivePost(PostID,userId){
         return await ReceivePostModel.findAll({
             attributes:['id'],
-            where:{userid:userId, status:true},
+            where:{userid:userId, postshareid:PostID, status:true},
             include: [{
                 model: PostNewsShareModel,
                 attributes: ['id'],
